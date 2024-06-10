@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_rechercher"
+        android:icon="@drawable/ic_search"
+        android:title="Rechercher" />
+
+
+    <!-- Menu Section -->
+    <item
+        android:id="@+id/menu_programmes"
+        android:icon="@drawable/ic_programmes"
+        android:title="Programmes" />
+    <item
+        android:id="@+id/menu_pipeline"
+        android:icon="@drawable/ic_pipeline"
+        android:title="Pipeline" />
+    <item
+        android:id="@+id/menu_mes_programmes"
+        android:icon="@drawable/ic_my_programs"
+        android:title="Mes programmes" />
+
+    <!-- Communauté Section -->
+    <item
+        android:id="@+id/menu_questions"
+        android:icon="@drawable/ic_programmes"
+        android:title="Questions" />
+    <item
+        android:id="@+id/menu_mes_questions"
+        android:icon="@drawable/ic_my_questions"
+        android:title="Mes questions" />
+    <item
+        android:id="@+id/menu_mes_reponses"
+        android:icon="@drawable/ic_my_answers"
+        android:title="Mes réponses" />
+    <item
+        android:id="@+id/menu_mes_groupes"
+        android:icon="@drawable/ic_my_groups"
+        android:title="Mes groupes" />
+</menu>
