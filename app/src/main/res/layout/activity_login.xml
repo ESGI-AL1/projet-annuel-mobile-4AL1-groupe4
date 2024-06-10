@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <!-- Bouton de retour -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/backButton"
+        android:layout_width="41dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/white"
+        app:cornerRadius="12dp"
+        app:icon="@drawable/chevron_left"
+        app:iconGravity="textStart"
+        app:iconSize="20dp"
+        app:iconTint="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/gray"
+        app:strokeWidth="1dp" />
+
+    <!-- Conteneur principal -->
+    <LinearLayout
+        android:id="@+id/contentLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backButton">
+
+        <!-- Titre principal -->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="50dp"
+            android:text="Content de vous revoir!"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- Champ de texte pour l'adresse mail -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:boxStrokeColor="@color/gray"
+            app:hintEnabled="true"
+            app:boxStrokeWidth="1dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Saisir votre adresse mail" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Champ de texte pour le mot de passe -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:boxStrokeColor="@color/gray"
+            app:hintEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Saisir votre mot de passe"
+                android:inputType="textPassword"
+                app:endIconMode="password_toggle" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Texte pour mot de passe oublié -->
+        <TextView
+            android:id="@+id/forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="8dp"
+            android:text="Mot de passe oublié?"
+            android:textColor="@color/gray" />
+
+        <!-- Bouton de connexion -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/black"
+            android:text="Se connecter"
+            android:textColor="@color/white"
+            app:cornerRadius="4dp" />
+
+        <!-- Texte de séparation -->
+        <TextView
+            android:id="@+id/orConnectWith"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:text="Ou se connecter avec"
+            android:textColor="@color/gray" />
+
+        <!-- Boutons de connexion sociale -->
+        <LinearLayout
+            android:id="@+id/socialButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/googleButton"
+                android:layout_width="0dp"
+                android:layout_height="51dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                app:cornerRadius="4dp"
+                app:icon="@drawable/ic_google"
+                app:iconGravity="textStart"
+                app:iconSize="25dp"
+                app:iconTint="@color/black"
+                app:strokeColor="@color/gray"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/githubButton"
+                android:layout_width="0dp"
+                android:layout_height="51dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="50dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                app:cornerRadius="4dp"
+                app:icon="@drawable/ic_github"
+                app:iconGravity="textStart"
+                app:iconSize="30dp"
+                app:iconTint="@color/black"
+                app:strokeColor="@color/gray"
+                app:strokeWidth="1dp" />
+        </LinearLayout>
+
+        <!-- Texte pour inscription existante -->
+        <TextView
+            android:id="@+id/alreadyHaveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center_horizontal"
+            android:text="Vous n’avez pas de compte? Créer un compte"
+            android:textColor="@color/black" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
