@@ -12,6 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Acad"
         tools:targetApi="31">
+        <activity android:name=".AddProgramActivity"
+            android:exported="false" />
+        <activity android:name=".ProgramsActivity"
+            android:exported="false" />
+        <activity android:name=".HomeActivity"
+            android:exported="false" />
+        <activity android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity android:name=".LoginActivity"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
