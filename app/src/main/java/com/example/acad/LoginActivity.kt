@@ -5,18 +5,13 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-//import com.example.acad.adapters.ProgramAdapter
-//import com.example.acad.models.Program
+import com.example.acad.R
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.navigation.NavigationView
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_login)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -32,6 +27,12 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val btnLogin = findViewById<Button>(R.id.loginButton)
+
+        btnLogin.setOnClickListener {
+            // Handle login button click
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
 
         val backBtn: MaterialButton = findViewById(R.id.backButton)
         backBtn.setOnClickListener {
