@@ -6,9 +6,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Acad"
         tools:targetApi="31">
@@ -24,15 +24,20 @@
         <activity
             android:name=".AddQuestionActivity"
             android:exported="false" />
-        <activity android:name=".AddProgramActivity"
+        <activity
+            android:name=".AddProgramActivity"
             android:exported="false" />
-        <activity android:name=".ProgramsActivity"
+        <activity
+            android:name=".ProgramsActivity"
             android:exported="false" />
-        <activity android:name=".HomeActivity"
+        <activity
+            android:name=".HomeActivity"
             android:exported="false" />
-        <activity android:name=".RegisterActivity"
+        <activity
+            android:name=".RegisterActivity"
             android:exported="false" />
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
