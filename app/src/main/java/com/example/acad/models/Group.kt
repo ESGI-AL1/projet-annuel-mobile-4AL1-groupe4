@@ -1,4 +1,3 @@
 package com.example.acad.models
 
-class Group {
-}
+data class Group(val name: String, val date: String)
