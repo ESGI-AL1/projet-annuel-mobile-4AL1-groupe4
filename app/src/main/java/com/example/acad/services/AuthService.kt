@@ -2,6 +2,7 @@ package com.example.acad.services
 
 import com.example.acad.models.Jwt
 import com.example.acad.models.User
+import com.example.acad.requests.LoginRequest
 import com.example.acad.requests.UserRequest
 import retrofit2.http.Body
 import retrofit2.http.Headers
