@@ -1,7 +1,5 @@
 package com.example.acad.objects
 
-package com.example.acad.objects
-
 import com.google.gson.GsonBuilder
 import com.example.acad.utils.HttpInterceptor
 import com.example.acad.utils.SERVER_IP_BASE
