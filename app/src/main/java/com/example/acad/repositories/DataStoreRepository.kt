@@ -13,9 +13,9 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 
-
 val Context.accessToken: DataStore<Preferences> by preferencesDataStore("access_token_pref")
 val Context.refreshToken: DataStore<Preferences> by preferencesDataStore("refresh_token_pref")
+
 class DataStoreRepository(context: Context) {
     private object PreferencesKey {
         val accessToken = stringPreferencesKey("access_token_state")

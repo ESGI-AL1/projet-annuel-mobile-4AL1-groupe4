@@ -63,7 +63,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Saisir votre adresse mail" />
+                android:hint="Saisir votre nom d'utilisateur" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Champ de texte pour le mot de passe -->
