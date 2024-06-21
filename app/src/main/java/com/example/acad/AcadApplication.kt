@@ -1,7 +1,7 @@
 package com.example.acad
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
-
-class AcadApplication {
-}
+@HiltAndroidApp
+class AcadApplication ()
