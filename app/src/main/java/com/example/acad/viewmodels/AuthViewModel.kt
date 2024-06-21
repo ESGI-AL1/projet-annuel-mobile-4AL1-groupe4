@@ -1,4 +1,9 @@
 package com.example.acad.viewmodels
 
-class AuthViewModel {
+import javax.inject.Inject
+
+class AuthViewModel @Inject constructor(
+
+) {
+
 }
