@@ -14,9 +14,8 @@ fun Date.format(format: String, date: Locale = Locale.getDefault()): String {
 }
 
 fun String.formatDate(format: String, locale: Locale = Locale.getDefault()): String =
-    if (this.isBlank()) {
-        ""
-    } else {
+    if (this.isBlank()) ""
+    else {
         val formatter = SimpleDateFormat("dd/MM/yyyy", locale)
         val localeDate = formatter.parse(this)
         "${localeDate?.format(format)}"

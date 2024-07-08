@@ -1,20 +1,36 @@
 package com.example.acad.services
 
-import com.example.acad.models.Jwt
-import com.example.acad.models.User
-import com.example.acad.requests.LoginRequest
-import com.example.acad.requests.UserRequest
-import retrofit2.http.Body
+import com.example.acad.models.Program
+import com.example.acad.models.ShowProgram
+import okhttp3.RequestBody
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface ProgramService {
 
-    @POST("user/register/")
+    @GET("/api/programs/")
     @Headers("Content-Type: application/json; charset=utf-8")
-    suspend fun register(@Body request: UserRequest): User
+    suspend fun list(@Header("Authorization") token: String): List<Program>
 
-    @POST("/api/token/")
+    @GET("/api/programs/public/all/")
     @Headers("Content-Type: application/json; charset=utf-8")
-    suspend fun login(@Body request: LoginRequest): Jwt
+    suspend fun publicList(@Header("Authorization") token: String): List<Program>
+
+    @Multipart
+    @POST("/api/programs/")
+    suspend fun create(
+        @Header("Authorization") token: String,
+        @Part("title") title: RequestBody,
+        @Part("description") description: RequestBody,
+        @Part("tags") tags: RequestBody
+    ): Program
+
+    @GET("/api/programs/{id}/")
+    @Headers("Content-Type: application/json; charset=utf-8")
+    suspend fun show(@Header("Authorization") token: String, @Path("id") programId: String): ShowProgram
 }

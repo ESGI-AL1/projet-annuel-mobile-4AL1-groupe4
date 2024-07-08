@@ -1,4 +1,10 @@
 package com.example.acad.models
 
-data class Group(val name: String, val date: String)
+import com.google.gson.annotations.SerializedName
 
+data class Group(
+    val id: Int,
+    val name: String,
+    @SerializedName("created_at")
+    val date: String
+)

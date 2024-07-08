@@ -1,5 +1,7 @@
 package com.example.acad.services
 
+import com.example.acad.models.HttpResponse
+import com.example.acad.models.HttpResponse.SuccessResponse
 import com.example.acad.models.Jwt
 import com.example.acad.models.User
 import com.example.acad.requests.LoginRequest
@@ -14,7 +16,7 @@ interface AuthService {
     @Headers("Content-Type: application/json; charset=utf-8")
     suspend fun register(@Body request: UserRequest): User
 
-    @POST("/api/token/")
+    @POST("user/login/")
     @Headers("Content-Type: application/json; charset=utf-8")
-    suspend fun login(@Body request: LoginRequest): Jwt
+    suspend fun login(@Body request: LoginRequest): SuccessResponse<Jwt>
 }
