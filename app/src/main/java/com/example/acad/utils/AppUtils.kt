@@ -4,9 +4,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-const val SERVER_IP_BASE = "192.168.43.101:8000"
-//const val SERVER_IP_BASE = "172.17.0.1:8000"
-//const val SERVER_IP_BASE = "172.16.10.150:8000"
+const val SERVER_IP_BASE = "192.168.1.21:8000"
+//const val SERVER_IP_BASE = "172.25.16.1:8000"
+//const val SERVER_IP_BASE = "172.25.16.150:8000"
 
 fun Date.format(format: String, date: Locale = Locale.getDefault()): String {
     val formatter = SimpleDateFormat(format, date)

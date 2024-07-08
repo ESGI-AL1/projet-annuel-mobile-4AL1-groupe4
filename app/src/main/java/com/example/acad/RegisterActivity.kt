@@ -62,7 +62,7 @@ class RegisterActivity : AppCompatActivity() {
             // Handle register button click
             val request = UserRequest(
                 email = emailTextEdit.text.toString(),
-                username = emailTextEdit.text.toString(),
+                username = usernameTextEdit.text.toString(),
                 password = passwordTextEdit.text.toString(),
                 passwordConfirm = confirmPasswordTextEdit.text.toString(),
             )
