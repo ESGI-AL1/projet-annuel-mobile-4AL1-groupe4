@@ -6,10 +6,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.acad.R
 import com.example.acad.models.Program
+import com.example.acad.utils.format
+import com.example.acad.utils.parseDate
 import com.example.acad.viewholders.ProgramViewHolder
 
-class ProgramAdapter(private val programs: List<Program>, private val onClick: (Program) -> Unit) :
-    RecyclerView.Adapter<ProgramViewHolder>() {
+class ProgramAdapter(
+    private var programs: List<Program>,
+    private val onClick: (Program) -> Unit
+) : RecyclerView.Adapter<ProgramViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgramViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_program, parent, false)
@@ -18,9 +22,10 @@ class ProgramAdapter(private val programs: List<Program>, private val onClick: (
 
     override fun onBindViewHolder(holder: ProgramViewHolder, position: Int) {
         val program = programs[position]
-        holder.profileImage.setImageResource(program.profileImage)
+        val date = program.createdAt.parseDate("yyyy-MM-dd")
+        holder.profileImage.setImageResource(R.drawable.ic_profile)
         holder.programTitle.text = program.title
-        holder.programDate.text = program.date
+        holder.programDate.text = date?.format("dd/MM/yyyy")
         holder.programDescription.text = program.description
 
         // Clear existing tags
@@ -40,4 +45,9 @@ class ProgramAdapter(private val programs: List<Program>, private val onClick: (
     }
 
     override fun getItemCount(): Int = programs.size
+
+    fun updateData(newPrograms: List<Program>) {
+        programs = newPrograms
+        notifyDataSetChanged()
+    }
 }
