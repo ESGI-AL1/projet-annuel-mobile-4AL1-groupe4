@@ -1,11 +1,16 @@
 package com.example.acad.objects
 
 import android.content.Context
+import com.example.acad.data.UserData
 import com.example.acad.repositories.AuthRepository
 import com.example.acad.repositories.DataStoreRepository
+import com.example.acad.repositories.GroupRepository
 import com.example.acad.repositories.ProgramRepository
+import com.example.acad.repositories.QuestionRepository
 import com.example.acad.services.AuthService
+import com.example.acad.services.GroupService
 import com.example.acad.services.ProgramService
+import com.example.acad.services.QuestionService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,5 +43,25 @@ object AppModule {
     @Provides
     @Singleton
     fun provideProgramRepository(service: ProgramService) = ProgramRepository(service)
+
+    @Provides
+    @Singleton
+    fun provideUserData(): UserData = UserData()
+
+    @Provides
+    @Singleton
+    fun provideGroupRepository(service: GroupService) = GroupRepository(service)
+
+    @Provides
+    @Singleton
+    fun provideGroupService(): GroupService = Retrofit.getRetrofit().create(GroupService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideQuestionRepository(service: QuestionService) = QuestionRepository(service)
+
+    @Provides
+    @Singleton
+    fun provideQuestionService(): QuestionService = Retrofit.getRetrofit().create(QuestionService::class.java)
 
 }

@@ -1,21 +1,37 @@
 package com.example.acad
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.acad.adapters.ProgramAdapter
+import com.example.acad.data.UserData
 import com.example.acad.models.Program
+import com.example.acad.repositories.DataStoreRepository
+import com.example.acad.repositories.ProgramRepository
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
@@ -23,6 +39,15 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var topAppBar: MaterialToolbar
+
+    @Inject
+    lateinit var userData: UserData
+
+    @Inject
+    lateinit var programRepository: ProgramRepository
+
+    @Inject
+    lateinit var dataStoreRepository: DataStoreRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,46 +69,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
         // Exemple de données
-        val programs = listOf(
-            Program(
-                1,
-                "Programme pour ...",
-                "Mis à jour il y a 9 jours",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet enim nec mollis sodales. ",
-                arrayListOf("golang", "linux", "overflow"),
-                R.drawable.ic_profile,
-                "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                "Golanginya"
-            ),
-            Program(
-                2,
-                "Programme pour ...",
-                "Mis à jour il y a 9 jours",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet enim nec mollis sodales. Nulla vel accumsan enim.",
-                arrayListOf("golang", "linux", "overflow"),
-                R.drawable.ic_profile,
-                "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                "Golanginya"
-            ),
-            Program(
-                3,
-                "Programme pour ...",
-                "Mis à jour il y a 9 jours",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet enim nec mollis sodales. Nulla vel accumsan enim. Praesent sit amet lectus blandit neque aliquet laoreet.",
-                arrayListOf("golang", "linux", "overflow"),
-                R.drawable.ic_profile,
-                "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                "Golanginya"
-            ),
-            // Ajoutez plus de programmes ici
-        )
+        val programs = emptyList<Program>()
 
         recyclerView = findViewById(R.id.recyclerView)
-        adapter = ProgramAdapter(programs) { program ->
-            val intent = Intent(this, ShowProgramActivity::class.java)
-            intent.putExtra("programId", program.id)
-            startActivity(intent)
-        }
+        adapter = programAdapterOnClick(programs)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -96,6 +85,11 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val headerView: View = navigationView.getHeaderView(0)
+        val profileName: TextView = headerView.findViewById(R.id.profileName)
+        val profileUsername: TextView = headerView.findViewById(R.id.profileUsername)
+        profileName.text = userData.userState.value.username
+        profileUsername.text = userData.userState.value.email
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -121,13 +115,13 @@ class HomeActivity : AppCompatActivity() {
 
                 R.id.menu_questions -> {
                     // Handle Questions action
-                    val intent = Intent(this, QuestionsActivity::class.java)
+                    val intent = Intent(this, AllQuestionActivity::class.java)
                     startActivity(intent)
                 }
 
                 R.id.menu_mes_questions -> {
                     // Handle Mes Questions action
-                    val intent = Intent(this, QuestionsActivity::class.java)
+                    val intent = Intent(this, MyQuestionActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -144,5 +138,32 @@ class HomeActivity : AppCompatActivity() {
             drawerLayout.closeDrawers()
             true
         }
+
+        lifecycleScope.launch { launchRequest() }
     }
+
+    private suspend fun launchRequest() = withContext(Dispatchers.IO) {
+        dataStoreRepository.readAccessToken().collect {
+            programRepository.publicListProgram(it)
+                .catch { exception ->
+                    if (exception is HttpException) {
+                        Log.e(TAG, "loginUser: ${exception.message()}", exception)
+                    }
+//                _state.value = HttpStatus.ERROR
+                }
+                .collect { response ->
+                    Log.d(TAG, "launchRequest: $response")
+                    withContext(Dispatchers.Main) {
+                        adapter.updateData(response)
+                    }
+                }
+        }
+    }
+
+    private fun programAdapterOnClick(programs: List<Program>) =
+        ProgramAdapter(programs) { program ->
+            val intent = Intent(this, ShowProgramActivity::class.java)
+            intent.putExtra("programId", program.id.toString())
+            startActivity(intent)
+        }
 }

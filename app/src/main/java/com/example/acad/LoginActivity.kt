@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.acad.data.UserData
+import com.example.acad.models.User
 import com.example.acad.repositories.AuthRepository
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.requests.LoginRequest
@@ -37,6 +39,9 @@ class LoginActivity : AppCompatActivity() {
 
     @Inject
     lateinit var dataStoreRepository: DataStoreRepository
+
+    @Inject
+    lateinit var userData: UserData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,8 +86,15 @@ class LoginActivity : AppCompatActivity() {
             .collect { response ->
                 Log.d(TAG, "launchRequest: $response")
                 _state.value = HttpStatus.LOADED
-                dataStoreRepository.saveAccessToken(response.access)
-                dataStoreRepository.saveRefreshToken(response.refresh)
+                val user = User().copy(
+                    id = response.data.user.id,
+                    username = response.data.user.username,
+                    email = response.data.user.email
+                );
+                dataStoreRepository.saveAccessToken(response.data.access)
+                dataStoreRepository.saveRefreshToken(response.data.refresh)
+                dataStoreRepository.saveUserId(response.data.user.id.toString())
+                userData.save(user)
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 startActivity(intent)
             }

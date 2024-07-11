@@ -8,3 +8,4 @@ data class Group(
     @SerializedName("created_at")
     val date: String
 )
+

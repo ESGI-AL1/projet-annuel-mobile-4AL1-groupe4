@@ -1,25 +1,43 @@
 package com.example.acad
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.acad.adapters.GroupAdapter
 import com.example.acad.models.Group
+import com.example.acad.repositories.DataStoreRepository
+import com.example.acad.repositories.GroupRepository
 import com.google.android.material.button.MaterialButton
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GroupsActivity : AppCompatActivity() {
 
+    private lateinit var adapter: GroupAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var groupAdapter: GroupAdapter
-    private val groups = listOf(
-        Group("Nom du groupe", "Date de création"),
-        Group("Linuxoid", "il y a 25 min"),
-        Group("Linuxoid", "il y a 25 min")
-    )
+
+    private val groups = emptyList<Group>()
+
+    @Inject
+    lateinit var repository: GroupRepository
+
+    @Inject
+    lateinit var dataStoreRepository: DataStoreRepository
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +55,34 @@ class GroupsActivity : AppCompatActivity() {
         }
 
         recyclerView = findViewById(R.id.recyclerView)
-        groupAdapter = GroupAdapter(groups)
+        adapter = groupAdapterOnClick(groups)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = groupAdapter
+        recyclerView.adapter = adapter
+
+        lifecycleScope.launch { launchRequest() }
+    }
+
+    private suspend fun launchRequest() = withContext(Dispatchers.IO) {
+        dataStoreRepository.readAccessToken().collect {
+            repository.publicListGroup(it)
+                .catch { exception ->
+                    if (exception is HttpException) {
+                        Log.e(TAG, "loginUser: ${exception.message()}", exception)
+                    }
+//                _state.value = HttpStatus.ERROR
+                }
+                .collect { response ->
+                    Log.d(TAG, "launchRequest: $response")
+                    withContext(Dispatchers.Main) {
+                        adapter.updateData(response)
+                    }
+                }
+        }
+    }
+
+    private fun groupAdapterOnClick(groups: List<Group>) = GroupAdapter(groups) { group ->
+        val intent = Intent(this, QuestionsActivity::class.java)
+        intent.putExtra("groupId", group.id.toString())
+        startActivity(intent)
     }
 }

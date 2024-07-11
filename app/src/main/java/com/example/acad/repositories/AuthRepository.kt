@@ -23,5 +23,4 @@ class AuthRepository @Inject constructor(
     fun loginUser(request: LoginRequest): Flow<SuccessResponse<Jwt>> = flow {
         emit(service.login(request))
     }
-
 }

@@ -105,7 +105,6 @@ class ProgramsActivity : AppCompatActivity() {
         lifecycleScope.launch { launchRequest() }
     }
 
-
     private suspend fun launchRequest() = withContext(Dispatchers.IO) {
         dataStoreRepository.readAccessToken().collect {
             programRepository.listProgram(it)

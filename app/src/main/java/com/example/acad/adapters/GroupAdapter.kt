@@ -7,7 +7,10 @@ import com.example.acad.R
 import com.example.acad.models.Group
 import com.example.acad.viewholders.GroupViewHolder
 
-class GroupAdapter(private val groups: List<Group>) : RecyclerView.Adapter<GroupViewHolder>() {
+class GroupAdapter(
+    private var groups: List<Group>,
+    private val onClick: (Group) -> Unit
+) : RecyclerView.Adapter<GroupViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_group, parent, false)
         return GroupViewHolder(view)
@@ -24,5 +27,14 @@ class GroupAdapter(private val groups: List<Group>) : RecyclerView.Adapter<Group
         holder.iconRight.setOnClickListener {
             // Handle click event to navigate to group details
         }
+
+        holder.itemView.setOnClickListener {
+            onClick(group)
+        }
+    }
+
+    fun updateData(newGroups: List<Group>) {
+        groups = newGroups
+        notifyDataSetChanged()
     }
 }
