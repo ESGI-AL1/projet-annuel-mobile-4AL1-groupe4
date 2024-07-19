@@ -3,6 +3,6 @@
     tools:ignore="MissingDefaultResource">
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.1.21</domain>
-
+        <domain includeSubdomains="true">ec2-13-60-35-3.eu-north-1.compute.amazonaws.com</domain>
     </domain-config>
 </network-security-config>
