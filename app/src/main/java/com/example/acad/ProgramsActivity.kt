@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.acad.adapters.ProgramAdapter
+import com.example.acad.data.ProgramData
 import com.example.acad.models.Program
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.repositories.ProgramRepository
@@ -31,6 +32,12 @@ class ProgramsActivity : AppCompatActivity() {
     private lateinit var adapter: ProgramAdapter
 
     @Inject
+    lateinit var programData: ProgramData
+
+    // Exemple de données
+    private val programs = emptyList<Program>()
+
+    @Inject
     lateinit var programRepository: ProgramRepository
 
     @Inject
@@ -47,42 +54,6 @@ class ProgramsActivity : AppCompatActivity() {
         }
 
 
-        // Exemple de données
-        val programs = emptyList<Program>()
-//            listOf(
-//            Program(
-//                1,
-//                "Programme pour ...",
-//                "Mis à jour il y a 9 jours",
-//                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet enim nec mollis sodales. ",
-//                arrayListOf("golang", "linux", "overflow"),
-//                R.drawable.ic_profile,
-//                "",
-//                "Golanginya"
-//            ),
-//            Program(
-//                2,
-//                "Programme pour ...",
-//                "Mis à jour il y a 9 jours",
-//                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet enim nec mollis sodales. Nulla vel accumsan enim.",
-//                arrayListOf("golang", "linux", "overflow"),
-//                R.drawable.ic_profile,
-//                "",
-//                "Golanginya"
-//            ),
-//            Program(
-//                3,
-//                "Programme pour ...",
-//                "Mis à jour il y a 9 jours",
-//                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer aliquet enim nec mollis sodales. Nulla vel accumsan enim. Praesent sit amet lectus blandit neque aliquet laoreet.",
-//                arrayListOf("golang", "linux", "overflow"),
-//                R.drawable.ic_profile,
-//                "",
-//                "Golanginya"
-//            ),
-//            // Ajoutez plus de programmes ici
-//        )
-//
         recyclerView = findViewById(R.id.recyclerView)
         adapter = programAdapterOnClick(programs)
 
@@ -114,10 +85,13 @@ class ProgramsActivity : AppCompatActivity() {
                     }
 //                _state.value = HttpStatus.ERROR
                 }
-                .collect { response ->
-                    Log.d(TAG, "launchRequest: $response")
+                .collect { programs ->
+//                    val programs: List<Program> = response
+//                        .map { program -> if (program is Program) program else Program() }
+                    Log.d(TAG, "launchRequest: $programs")
+                    programData.saveList(programs)
                     withContext(Dispatchers.Main) {
-                        adapter.updateData(response)
+                        adapter.updateData(programs)
                     }
                 }
         }
