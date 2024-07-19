@@ -14,7 +14,7 @@
     <item
         android:id="@+id/menu_pipeline"
         android:icon="@drawable/ic_pipeline"
-        android:title="Pipeline" />
+        android:title="Notification" />
     <item
         android:id="@+id/menu_mes_programmes"
         android:icon="@drawable/ic_my_programs"
@@ -37,4 +37,8 @@
         android:id="@+id/menu_mes_groupes"
         android:icon="@drawable/ic_my_groups"
         android:title="Mes groupes" />
+    <item
+        android:id="@+id/menu_mes_amis"
+        android:icon="@drawable/ic_my_groups"
+        android:title="Mes amis" />
 </menu>
