@@ -2,6 +2,7 @@ package com.example.acad.services
 
 import com.example.acad.models.Program
 import com.example.acad.models.ShowProgram
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -27,10 +28,10 @@ interface ProgramService {
         @Header("Authorization") token: String,
         @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
-        @Part("tags") tags: RequestBody
+//        @Part("file") file: MultipartBody.Part
     ): Program
 
     @GET("/api/programs/{id}/")
     @Headers("Content-Type: application/json; charset=utf-8")
-    suspend fun show(@Header("Authorization") token: String, @Path("id") programId: String): ShowProgram
+    suspend fun show(@Header("Authorization") token: String, @Path("id") programId: String): Program
 }
