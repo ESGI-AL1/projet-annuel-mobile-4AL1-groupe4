@@ -50,8 +50,15 @@ class GroupsActivity : AppCompatActivity() {
         }
 
         val backBtn: MaterialButton = findViewById(R.id.backButton)
+        val addGroupBtn: MaterialButton = findViewById(R.id.btnAdd)
+
         backBtn.setOnClickListener {
             finish()
+        }
+
+        addGroupBtn.setOnClickListener {
+            val intent = Intent(this, AddGroupActivity::class.java)
+            startActivity(intent)
         }
 
         recyclerView = findViewById(R.id.recyclerView)
@@ -64,7 +71,7 @@ class GroupsActivity : AppCompatActivity() {
 
     private suspend fun launchRequest() = withContext(Dispatchers.IO) {
         dataStoreRepository.readAccessToken().collect {
-            repository.publicListGroup(it)
+            repository.listProgram(it)
                 .catch { exception ->
                     if (exception is HttpException) {
                         Log.e(TAG, "loginUser: ${exception.message()}", exception)
@@ -81,7 +88,7 @@ class GroupsActivity : AppCompatActivity() {
     }
 
     private fun groupAdapterOnClick(groups: List<Group>) = GroupAdapter(groups) { group ->
-        val intent = Intent(this, QuestionsActivity::class.java)
+        val intent = Intent(this, GroupDetailActivity::class.java)
         intent.putExtra("groupId", group.id.toString())
         startActivity(intent)
     }
