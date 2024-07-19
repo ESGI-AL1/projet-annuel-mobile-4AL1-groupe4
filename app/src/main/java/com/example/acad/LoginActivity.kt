@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -83,20 +84,50 @@ class LoginActivity : AppCompatActivity() {
                 }
                 _state.value = HttpStatus.ERROR
             }
+            .onCompletion {
+                dataStoreRepository.readUserId().collect { userId ->
+                    if (userId.isBlank()) {
+                        getUser()
+                    } else {
+                        getUser(userId)
+                    }
+                }
+            }
             .collect { response ->
                 Log.d(TAG, "launchRequest: $response")
                 _state.value = HttpStatus.LOADED
-                val user = User().copy(
-                    id = response.data.user.id,
-                    username = response.data.user.username,
-                    email = response.data.user.email
-                );
-                dataStoreRepository.saveAccessToken(response.data.access)
-                dataStoreRepository.saveRefreshToken(response.data.refresh)
-                dataStoreRepository.saveUserId(response.data.user.id.toString())
-                userData.save(user)
-                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                startActivity(intent)
+                dataStoreRepository.saveAccessToken(response.access)
+                dataStoreRepository.saveRefreshToken(response.refresh)
             }
+    }
+
+    private suspend fun getUser(userId: String = "77") = withContext(Dispatchers.IO) {
+        dataStoreRepository.readAccessToken().collect { token ->
+            repository.getAuthUser(token, userId)
+                .catch { exception ->
+                    if (exception is HttpException) {
+                        Log.e(TAG, "loginUser: ${exception.message()}", exception)
+                    }
+                    _state.value = HttpStatus.ERROR
+                }
+                .onCompletion {
+                    repository.allUsers(token).collect { response ->
+                        Log.d(TAG, "launchRequest: $response")
+                        userData.saveList(response)
+                    }
+                }
+                .collect { response ->
+                    Log.d(TAG, "launchRequest: $response")
+                    dataStoreRepository.saveUserId(response.id.toString())
+                    val user = User().copy(
+                        id = response.id,
+                        username = response.username,
+                        email = response.email
+                    )
+                    userData.save(user)
+                    val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                }
+        }
     }
 }
