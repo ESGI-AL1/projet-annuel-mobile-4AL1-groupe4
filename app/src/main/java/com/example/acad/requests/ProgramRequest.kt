@@ -1,6 +1,7 @@
 package com.example.acad.requests
 
 import com.google.gson.annotations.SerializedName
+import java.io.File
 
 data class ProgramRequest(
     @SerializedName("title")
@@ -8,5 +9,7 @@ data class ProgramRequest(
     @SerializedName("description")
     val description: String,
     @SerializedName("tags")
-    val tags: List<String>
+    val tags: List<String>,
+    @SerializedName("file")
+    val file: File
 )
