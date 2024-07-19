@@ -6,6 +6,10 @@ data class Group(
     val id: Int,
     val name: String,
     @SerializedName("created_at")
-    val date: String
+    val date: String,
+    val description: String,
+    @SerializedName("author_id")
+    val author: String,
+    val members: List<Double>
 )
 
