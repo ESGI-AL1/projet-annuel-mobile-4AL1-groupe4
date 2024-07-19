@@ -19,8 +19,8 @@ class HttpInterceptor : Interceptor {
         val requestBuilder = chain.request().newBuilder()
         Log.d(ContentValues.TAG, "request builder: ${requestBuilder.build()}")
         val response = chain.proceed(requestBuilder.build())
-        Log.d(ContentValues.TAG, "response builder: ${response.body()}")
-        if (response.code() == 401) {
+        Log.d(ContentValues.TAG, "response builder: ${response.body}")
+        if (response.code == 401) {
             synchronized(this) {
                 runBlocking {
                     launch {
