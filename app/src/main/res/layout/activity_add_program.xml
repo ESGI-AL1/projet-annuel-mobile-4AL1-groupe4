@@ -110,6 +110,28 @@
                     android:drawableEnd="@drawable/ic_dropdown" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Champ de texte pour télécharger un fichier -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/fileInputLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:boxStrokeColor="@color/gray"
+                app:hintEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/languagesInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/fileInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Uploader un fichier"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_upload" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <!-- Champ de texte pour la description du programme -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/descriptionInputLayout"
@@ -120,7 +142,7 @@
                 app:hintEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/languagesInputLayout">
+                app:layout_constraintTop_toBottomOf="@id/fileInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/descriptionInput"
