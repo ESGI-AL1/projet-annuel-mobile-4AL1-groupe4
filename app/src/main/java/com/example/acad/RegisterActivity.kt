@@ -11,7 +11,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.acad.R
+import com.example.acad.data.UserData
 import com.example.acad.repositories.AuthRepository
+import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.requests.UserRequest
 import com.example.acad.utils.enums.HttpStatus
 import com.google.android.material.button.MaterialButton
@@ -36,6 +38,9 @@ class RegisterActivity : AppCompatActivity() {
 
     @Inject
     lateinit var repository: AuthRepository
+
+    @Inject
+    lateinit var dataStoreRepository: DataStoreRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +91,7 @@ class RegisterActivity : AppCompatActivity() {
                 .collect {
                     Log.d(TAG, "launchRequest: $it")
                     _state.value = HttpStatus.LOADED
+                    dataStoreRepository.saveUserId(it.id.toString())
                     val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                     startActivity(intent)
                 }
