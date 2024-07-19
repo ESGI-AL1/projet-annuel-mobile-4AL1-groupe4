@@ -50,4 +50,8 @@ class ProgramAdapter(
         programs = newPrograms
         notifyDataSetChanged()
     }
+
+    fun getProgram(position: Int): Program {
+        return programs[position]
+    }
 }
