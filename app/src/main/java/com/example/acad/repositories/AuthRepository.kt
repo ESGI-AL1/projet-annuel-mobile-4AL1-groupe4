@@ -1,6 +1,5 @@
 package com.example.acad.repositories
 
-import com.example.acad.models.HttpResponse.SuccessResponse
 import com.example.acad.models.Jwt
 import com.example.acad.models.User
 import com.example.acad.requests.LoginRequest
@@ -20,7 +19,15 @@ class AuthRepository @Inject constructor(
         emit(service.register(request))
     }.flowOn(Dispatchers.IO)
 
-    fun loginUser(request: LoginRequest): Flow<SuccessResponse<Jwt>> = flow {
+    fun loginUser(request: LoginRequest): Flow<Jwt> = flow {
         emit(service.login(request))
-    }
+    }.flowOn(Dispatchers.IO)
+
+    fun getAuthUser(token: String, userId: String): Flow<User> = flow {
+        emit(service.userInfo("Bearer $token", userId))
+    }.flowOn(Dispatchers.IO)
+
+    fun allUsers(token: String): Flow<List<User>> = flow {
+        emit(service.list("Bearer $token"))
+    }.flowOn(Dispatchers.IO)
 }
