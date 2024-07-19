@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.acad.adapters.ProgramAdapter
+import com.example.acad.data.ProgramData
 import com.example.acad.data.UserData
 import com.example.acad.models.Program
 import com.example.acad.repositories.DataStoreRepository
@@ -42,6 +43,9 @@ class HomeActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userData: UserData
+
+    @Inject
+    lateinit var programData: ProgramData
 
     @Inject
     lateinit var programRepository: ProgramRepository
@@ -105,6 +109,8 @@ class HomeActivity : AppCompatActivity() {
 
                 R.id.menu_pipeline -> {
                     // Handle Pipeline action
+                    val intent = Intent(this, NotificationsActivity::class.java)
+                    startActivity(intent)
                 }
 
                 R.id.menu_mes_programmes -> {
@@ -134,6 +140,12 @@ class HomeActivity : AppCompatActivity() {
                     val intent = Intent(this, GroupsActivity::class.java)
                     startActivity(intent)
                 }
+
+                R.id.menu_mes_amis -> {
+                    // Handle Mes Amis action
+                    val intent = Intent(this, FriendsActivity::class.java)
+                    startActivity(intent)
+                }
             }
             drawerLayout.closeDrawers()
             true
@@ -151,10 +163,13 @@ class HomeActivity : AppCompatActivity() {
                     }
 //                _state.value = HttpStatus.ERROR
                 }
-                .collect { response ->
-                    Log.d(TAG, "launchRequest: $response")
+                .collect { programs ->
+//                    val programs: List<Program> = response
+//                        .map { program -> if (program is Program) program else Program() }
+                    Log.d(TAG, "launchRequest: $programs")
+                    programData.saveList(programs)
                     withContext(Dispatchers.Main) {
-                        adapter.updateData(response)
+                        adapter.updateData(programs)
                     }
                 }
         }
