@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "acad"
+rootProject.name = "Acad"
 include(":app")
  
