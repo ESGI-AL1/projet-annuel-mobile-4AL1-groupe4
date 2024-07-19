@@ -1,14 +1,19 @@
 package com.example.acad.objects
 
 import android.content.Context
+import com.example.acad.data.ProgramData
 import com.example.acad.data.UserData
 import com.example.acad.repositories.AuthRepository
 import com.example.acad.repositories.DataStoreRepository
+import com.example.acad.repositories.FriendRepository
 import com.example.acad.repositories.GroupRepository
+import com.example.acad.repositories.NotificationRepository
 import com.example.acad.repositories.ProgramRepository
 import com.example.acad.repositories.QuestionRepository
 import com.example.acad.services.AuthService
+import com.example.acad.services.FriendService
 import com.example.acad.services.GroupService
+import com.example.acad.services.NotificationService
 import com.example.acad.services.ProgramService
 import com.example.acad.services.QuestionService
 import dagger.Module
@@ -64,4 +69,20 @@ object AppModule {
     @Singleton
     fun provideQuestionService(): QuestionService = Retrofit.getRetrofit().create(QuestionService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideFriendService(): FriendService = Retrofit.getRetrofit().create(FriendService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideFriendRepository(service: FriendService) = FriendRepository(service)
+
+    @Provides
+    @Singleton
+    fun provideNotificationService(): NotificationService = Retrofit.getRetrofit()
+        .create(NotificationService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideNotificationRepository(service: NotificationService) = NotificationRepository(service)
 }
