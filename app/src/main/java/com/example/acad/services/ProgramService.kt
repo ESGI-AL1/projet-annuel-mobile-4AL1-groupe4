@@ -28,7 +28,7 @@ interface ProgramService {
         @Header("Authorization") token: String,
         @Part("title") title: RequestBody,
         @Part("description") description: RequestBody,
-//        @Part("file") file: MultipartBody.Part
+        @Part file: MultipartBody.Part?
     ): Program
 
     @GET("/api/programs/{id}/")

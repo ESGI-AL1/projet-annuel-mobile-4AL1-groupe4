@@ -1,5 +1,6 @@
 package com.example.acad.repositories
 
+import android.util.Log
 import com.example.acad.models.Program
 import com.example.acad.requests.ProgramRequest
 import com.example.acad.services.ProgramService
@@ -9,7 +10,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
@@ -32,13 +32,18 @@ class ProgramRepository @Inject constructor(
         val descriptionPart = request.description.toRequestBody("text/plain".toMediaTypeOrNull())
 
         // Créer le RequestBody pour le fichier
-        val filePart = MultipartBody.Part.createFormData("file", request.file.name, request.file.asRequestBody())
+        val filePart = request.file?.let { file ->
+            Log.d("Upload", "File name: ${file.name}")
+            MultipartBody.Part.createFormData(
+                "file",
+                file.name,
+                file.asRequestBody("application/octet-stream".toMediaTypeOrNull())
+            )
+        }
         emit(
             service.create(
-                token = "Bearer $token",
-                title = titlePart,
-                description = descriptionPart,
-//                file = filePart
+                token = "Bearer $token", title = titlePart, description = descriptionPart,
+                file = filePart
             )
         )
     }.flowOn(Dispatchers.IO)

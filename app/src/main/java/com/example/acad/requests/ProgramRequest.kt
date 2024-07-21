@@ -11,5 +11,5 @@ data class ProgramRequest(
     @SerializedName("tags")
     val tags: List<String>,
     @SerializedName("file")
-    val file: File
+    val file: File?
 )

@@ -7,5 +7,5 @@ data class GroupRequest(
     val title: String,
     val description: String,
     val members: List<Int?>,
-    val photo: String
+    //val photo: String
 )
