@@ -36,7 +36,6 @@ class AddGroupActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userData: UserData
-    lateinit var adapter: GroupAdapter
 
     private lateinit var tagsTextEdit: AutoCompleteTextView
     private lateinit var titleTextEdit: EditText
@@ -83,8 +82,7 @@ class AddGroupActivity : AppCompatActivity() {
             val request = GroupRequest(
                 title = titleTextEdit.text.toString(),
                 description = descriptionTextEdit.text.toString(),
-                members = members,
-                photo = photoTextEdit.text.toString()
+                members = members
             )
 
             lifecycleScope.launch { launchRequest(request) }
@@ -101,14 +99,8 @@ class AddGroupActivity : AppCompatActivity() {
                     }
 //                _state.value = HttpStatus.ERROR
                 }
-                .onCompletion {
-                    repository.listProgram(token).collect {
-                        adapter.updateData(it)
-                    }
-                }
                 .collect { response ->
                     Log.d(TAG, "launchRequest: $response")
-                    repository.listProgram(token)
                     finish()
                 }
         }
