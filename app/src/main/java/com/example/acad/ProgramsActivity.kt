@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.acad.adapters.ProgramAdapter
 import com.example.acad.data.ProgramData
+import com.example.acad.data.UserData
 import com.example.acad.models.Program
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.repositories.ProgramRepository
@@ -73,6 +74,13 @@ class ProgramsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        lifecycleScope.launch {
+            launchRequest()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         lifecycleScope.launch { launchRequest() }
     }
 
@@ -100,7 +108,7 @@ class ProgramsActivity : AppCompatActivity() {
     private fun programAdapterOnClick(programs: List<Program>) =
         ProgramAdapter(programs) { program ->
             val intent = Intent(this, ShowProgramActivity::class.java)
-            intent.putExtra("programId", program.id)
+            intent.putExtra("programId", program.id.toString())
             startActivity(intent)
         }
 }
