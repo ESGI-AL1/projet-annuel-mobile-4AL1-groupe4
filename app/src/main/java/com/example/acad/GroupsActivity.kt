@@ -69,9 +69,14 @@ class GroupsActivity : AppCompatActivity() {
         lifecycleScope.launch { launchRequest() }
     }
 
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch { launchRequest() }
+    }
+
     private suspend fun launchRequest() = withContext(Dispatchers.IO) {
-        dataStoreRepository.readAccessToken().collect {
-            repository.listProgram(it)
+        dataStoreRepository.readAccessToken().collect { token ->
+            repository.listProgram(token)
                 .catch { exception ->
                     if (exception is HttpException) {
                         Log.e(TAG, "loginUser: ${exception.message()}", exception)
@@ -80,8 +85,9 @@ class GroupsActivity : AppCompatActivity() {
                 }
                 .collect { response ->
                     Log.d(TAG, "launchRequest: $response")
+                    val groups = response.sortedByDescending { it.id }
                     withContext(Dispatchers.Main) {
-                        adapter.updateData(response)
+                        adapter.updateData(groups)
                     }
                 }
         }
