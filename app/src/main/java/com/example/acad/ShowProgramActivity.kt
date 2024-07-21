@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.acad.data.ProgramData
+import com.example.acad.data.UserData
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.repositories.ProgramRepository
 import com.example.acad.utils.format
@@ -19,12 +20,6 @@ import com.example.acad.utils.parseDate
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.Response
-import java.io.IOException
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,6 +33,9 @@ class ShowProgramActivity : AppCompatActivity() {
 
     @Inject
     lateinit var programData: ProgramData
+
+    @Inject
+    lateinit var userData: UserData
 
     @Inject
     lateinit var repository: ProgramRepository
@@ -74,10 +72,11 @@ class ShowProgramActivity : AppCompatActivity() {
 
         Log.d(TAG, "id: $programId")
         val program = programId?.let { id -> programData.find(id.toLong()) }
+        val user = program?.author.let { id -> userData.getUser(id!!.toLong()) }
         Log.d(TAG, "program: $program")
         if (program != null) {
             programTitle.text = program.title
-            programAuthor.text = "@Unknown"
+            programAuthor.text = if (user != null) "@${user.username}" else "@Unknown"
 
             programDate.text = program.createdAt.parseDate("yyyy-MM-dd")
                 ?.format("dd/MM/yyyy")
