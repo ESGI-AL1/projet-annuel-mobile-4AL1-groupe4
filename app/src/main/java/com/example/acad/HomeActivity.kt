@@ -119,21 +119,21 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
 
-                R.id.menu_questions -> {
-                    // Handle Questions action
-                    val intent = Intent(this, AllQuestionActivity::class.java)
-                    startActivity(intent)
-                }
-
-                R.id.menu_mes_questions -> {
-                    // Handle Mes Questions action
-                    val intent = Intent(this, MyQuestionActivity::class.java)
-                    startActivity(intent)
-                }
-
-                R.id.menu_mes_reponses -> {
-                    // Handle Mes Réponses action
-                }
+//                R.id.menu_questions -> {
+//                    // Handle Questions action
+//                    val intent = Intent(this, AllQuestionActivity::class.java)
+//                    startActivity(intent)
+//                }
+//
+//                R.id.menu_mes_questions -> {
+//                    // Handle Mes Questions action
+//                    val intent = Intent(this, MyQuestionActivity::class.java)
+//                    startActivity(intent)
+//                }
+//
+//                R.id.menu_mes_reponses -> {
+//                    // Handle Mes Réponses action
+//                }
 
                 R.id.menu_mes_groupes -> {
                     // Handle Mes Groupes action
@@ -155,8 +155,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private suspend fun launchRequest() = withContext(Dispatchers.IO) {
-        dataStoreRepository.readAccessToken().collect {
-            programRepository.publicListProgram(it)
+        dataStoreRepository.readAccessToken().collect { token ->
+            programRepository.publicListProgram(token)
                 .catch { exception ->
                     if (exception is HttpException) {
                         Log.e(TAG, "loginUser: ${exception.message()}", exception)
@@ -164,15 +164,19 @@ class HomeActivity : AppCompatActivity() {
 //                _state.value = HttpStatus.ERROR
                 }
                 .collect { programs ->
-//                    val programs: List<Program> = response
-//                        .map { program -> if (program is Program) program else Program() }
+                    val sortPrograms = programs.sortedByDescending { it.id }
                     Log.d(TAG, "launchRequest: $programs")
-                    programData.saveList(programs)
+                    programData.saveList(sortPrograms)
                     withContext(Dispatchers.Main) {
-                        adapter.updateData(programs)
+                        adapter.updateData(sortPrograms)
                     }
                 }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch { launchRequest() }
     }
 
     private fun programAdapterOnClick(programs: List<Program>) =
