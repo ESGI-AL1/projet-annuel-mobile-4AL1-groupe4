@@ -14,7 +14,8 @@ retrofit = "2.9.0"
 datastorePreferences = "1.1.1"
 lifecycleViewmodelKtx = "2.8.3"
 kspAndroid = "2.0.0-1.0.22"
-okhttp3 = "4.10.0"
+okhttp3 = "4.12.0"
+textdrawable = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,6 +39,7 @@ androidx-datastore-preferences-rxjava3 = { module = "androidx.datastore:datastor
 androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycleViewmodelKtx" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+amulyakhare-textdrawable = { module = "com.amulyakhare:com.amulyakhare.textdrawable", version.ref = "textdrawable" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

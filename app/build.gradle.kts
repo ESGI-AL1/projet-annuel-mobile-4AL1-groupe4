@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.common.java8)
     implementation(libs.retrofit.okhttp.client)
     implementation(libs.retrofit.logging.interceptor)
+//    implementation(libs.amulyakhare.textdrawable)
 }
 
 kapt {
