@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.acad.adapters.GroupDetailsPagerAdapter
+import com.example.acad.data.GroupData
 import com.example.acad.data.UserData
 import com.example.acad.data.toMember
 import com.example.acad.models.Group
@@ -24,6 +25,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -35,6 +37,9 @@ class GroupDetailActivity : AppCompatActivity() {
     private var group: Group? = null
 
     private lateinit var titleTextView: TextView
+    private lateinit var viewPager: ViewPager2
+    private lateinit var adapter: GroupDetailsPagerAdapter
+    private lateinit var tabLayout: TabLayout
 
     @Inject
     lateinit var repository: GroupRepository
@@ -44,6 +49,9 @@ class GroupDetailActivity : AppCompatActivity() {
 
     @Inject
     lateinit var userData: UserData
+
+    @Inject
+    lateinit var groupData: GroupData
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,18 +75,19 @@ class GroupDetailActivity : AppCompatActivity() {
 
         titleTextView = findViewById(R.id.groupName)
 
-        val viewPager: ViewPager2 = findViewById(R.id.viewPager)
-        val tabLayout: TabLayout = findViewById(R.id.tabLayout)
+        viewPager = findViewById(R.id.viewPager)
+        tabLayout = findViewById(R.id.tabLayout)
 
         val users = userData.list
         val members = group?.members?.map { users.find { user -> user.id.toLong() == it.toLong() } }
             ?.map {
                 Log.d(TAG, "onCreate: $it")
-                it!!.toMember() } ?: emptyList()
+                it!!.toMember()
+            } ?: emptyList()
 
-        // Configuration de l'adapter pour ViewPager2
-        val pagerAdapter = GroupDetailsPagerAdapter(this, group, members)
-        viewPager.adapter = pagerAdapter
+
+        adapter = GroupDetailsPagerAdapter(this, group)
+        viewPager.adapter = adapter
 
         // Liaison du TabLayout avec le ViewPager2
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
@@ -103,6 +112,7 @@ class GroupDetailActivity : AppCompatActivity() {
                     Log.d(TAG, "launchRequest: $response")
                     group = response
                     titleTextView.text = group?.name
+                    groupData.setGroup(group!!)
                 }
         }
     }
