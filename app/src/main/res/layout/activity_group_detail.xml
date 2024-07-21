@@ -39,7 +39,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/groupDetailsCard"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="550dp"
         android:layout_marginTop="-32dp"
         app:cardElevation="4dp"
         app:cardBackgroundColor="@android:color/transparent"
@@ -49,9 +49,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_height="match_parent"
             android:background="@drawable/rounded_top_corners"
+            android:orientation="vertical"
             android:padding="16dp">
 
 
@@ -67,18 +67,18 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Nom du groupe"
-                    android:textStyle="bold"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <!-- Bouton Rejoindre -->
-<!--                <com.google.android.material.button.MaterialButton-->
-<!--                    android:id="@+id/joinButton"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="Rejoindre"-->
-<!--                    app:cornerRadius="5dp"-->
-<!--                    android:backgroundTint="@color/orange"-->
-<!--                    android:textColor="@color/white" />-->
+                <!--                <com.google.android.material.button.MaterialButton-->
+                <!--                    android:id="@+id/joinButton"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="Rejoindre"-->
+                <!--                    app:cornerRadius="5dp"-->
+                <!--                    android:backgroundTint="@color/orange"-->
+                <!--                    android:textColor="@color/white" />-->
             </LinearLayout>
 
             <!-- TabLayout pour les sections Description et Membres -->
@@ -108,12 +108,12 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@id/tabLayout"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/tabLayout" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
