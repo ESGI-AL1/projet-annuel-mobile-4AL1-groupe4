@@ -14,10 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.acad.adapters.ProgramAdapter
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.repositories.ProgramRepository
-import com.example.acad.requests.LoginRequest
 import com.example.acad.requests.ProgramRequest
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
@@ -32,7 +30,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddProgramActivity : AppCompatActivity() {
-    private lateinit var adapter: ProgramAdapter
 
     @Inject
     lateinit var programRepository: ProgramRepository
@@ -112,9 +109,6 @@ class AddProgramActivity : AppCompatActivity() {
                 }
                 .collect { response ->
                     Log.d(TAG, "launchRequest: $response")
-                    programRepository.listProgram(it).collect{ programs ->
-                        adapter.updateData(programs)
-                    }
                     finish()
                 }
         }
@@ -132,9 +126,21 @@ class AddProgramActivity : AppCompatActivity() {
             data?.data?.let { uri ->
                 val fileName = getFileName(uri)
                 fileInput.setText(fileName)
-                selectedFile = uri.path?.let { File(it) }
+                selectedFile = getFileFromUri(uri)
             }
         }
+    }
+
+    private fun getFileFromUri(uri: Uri): File? {
+        val fileName = getFileName(uri)
+        val tempFile = File.createTempFile("temp_", fileName, applicationContext.cacheDir)
+        tempFile.outputStream().use { outputStream ->
+            contentResolver.openInputStream(uri)?.use { inputStream ->
+                inputStream.copyTo(outputStream)
+            }
+        }
+        Log.d(TAG, "getFileFromUri: $tempFile")
+        return tempFile
     }
 
     private fun getFileName(uri: Uri): String {
