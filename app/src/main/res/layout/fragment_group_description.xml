@@ -19,93 +19,93 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Section des tags -->
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/tagsLayout"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="8dp"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/desciptionView">-->
+<!--    <LinearLayout-->
+<!--        android:id="@+id/tagsLayout"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/desciptionView">-->
 
-    <!--        &lt;!&ndash; Tags will be dynamically added here &ndash;&gt;-->
-    <!--        <TextView-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginEnd="4dp"-->
-    <!--            android:background="@drawable/tag_background"-->
-    <!--            android:padding="4dp"-->
-    <!--            android:text="golang"-->
-    <!--            android:textSize="12sp" />-->
+<!--        &lt;!&ndash; Tags will be dynamically added here &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="4dp"-->
+<!--            android:background="@drawable/tag_background"-->
+<!--            android:padding="4dp"-->
+<!--            android:text="golang"-->
+<!--            android:textSize="12sp" />-->
 
-    <!--        <TextView-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginEnd="4dp"-->
-    <!--            android:background="@drawable/tag_background"-->
-    <!--            android:padding="4dp"-->
-    <!--            android:text="linux"-->
-    <!--            android:textSize="12sp" />-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="4dp"-->
+<!--            android:background="@drawable/tag_background"-->
+<!--            android:padding="4dp"-->
+<!--            android:text="linux"-->
+<!--            android:textSize="12sp" />-->
 
-    <!--        <TextView-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginEnd="4dp"-->
-    <!--            android:background="@drawable/tag_background"-->
-    <!--            android:padding="4dp"-->
-    <!--            android:text="overflow"-->
-    <!--            android:textSize="12sp" />-->
-    <!--    </LinearLayout>-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginEnd="4dp"-->
+<!--            android:background="@drawable/tag_background"-->
+<!--            android:padding="4dp"-->
+<!--            android:text="overflow"-->
+<!--            android:textSize="12sp" />-->
+<!--    </LinearLayout>-->
 
     <!-- Section des connexions -->
-    <!--    <TextView-->
-    <!--        android:id="@+id/connectionsTitle"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:text="Connections"-->
-    <!--        android:textStyle="bold"-->
-    <!--        android:textColor="@color/orange"-->
-    <!--        android:textSize="16sp"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/tagsLayout" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/connectionsTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Connections"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/orange"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/tagsLayout" />-->
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/followingTitle"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:text="Suivi(e)s"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/connectionsTitle" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/followingTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Suivi(e)s"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/connectionsTitle" />-->
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/followingRecyclerView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/followingTitle"-->
-    <!--        tools:listitem="@layout/item_following" />-->
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/followingRecyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/followingTitle"-->
+<!--        tools:listitem="@layout/item_following" />-->
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/followersTitle"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="16dp"-->
-    <!--        android:text="Followers"-->
-    <!--        android:textStyle="bold"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/followingRecyclerView" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/followersTitle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:text="Followers"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/followingRecyclerView" />-->
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/followersRecyclerView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginEnd="16dp"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/followersTitle"-->
-    <!--        tools:listitem="@layout/item_follower" />-->
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/followersRecyclerView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="16dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/followersTitle"-->
+<!--        tools:listitem="@layout/item_follower" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
