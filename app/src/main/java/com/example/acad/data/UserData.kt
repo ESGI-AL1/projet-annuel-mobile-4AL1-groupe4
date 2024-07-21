@@ -35,8 +35,8 @@ class UserData @Inject constructor() {
 
 fun User.toMember(): Member = Member(
     id = id,
-    username = username,
-    name = username,
+    username = "@$username",
+    name = "$lastName $firstName",
     bio = "",
     imageResId = 0
 )

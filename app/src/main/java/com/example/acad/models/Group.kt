@@ -11,5 +11,7 @@ data class Group(
     @SerializedName("author_id")
     val author: String,
     val members: List<Double>
-)
+) {
+    constructor() : this(0, "", "", "", "", listOf())
+}
 

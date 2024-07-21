@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.acad.R
 import com.example.acad.models.Group
+import com.example.acad.utils.format
+import com.example.acad.utils.parseDate
 import com.example.acad.viewholders.GroupViewHolder
 
 class GroupAdapter(
@@ -21,7 +23,7 @@ class GroupAdapter(
     override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
         val group = groups[position]
         holder.groupName.text = group.name
-        holder.groupDate.text = group.date
+        holder.groupDate.text = group.date.parseDate("yyyy-MM-dd")?.format("dd MMM yyyy")
         // Placeholder for profile image, update with actual image loading
         holder.profileImage.setImageResource(R.drawable.ic_profile)
         holder.iconRight.setOnClickListener {

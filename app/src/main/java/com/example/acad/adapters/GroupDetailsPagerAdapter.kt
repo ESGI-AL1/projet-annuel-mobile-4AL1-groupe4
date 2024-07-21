@@ -6,22 +6,23 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.acad.fragments.GroupDescriptionFragment
 import com.example.acad.fragments.GroupMembersFragment
 import com.example.acad.models.Group
-import com.example.acad.models.Member
 
 class GroupDetailsPagerAdapter(
     fragment: FragmentActivity,
-    private val group: Group?,
-    private val members: List<Member>
-) :
-    FragmentStateAdapter(fragment) {
+    private var group: Group?
+) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> GroupDescriptionFragment(group)
-            1 -> GroupMembersFragment(members)
+            0 -> GroupDescriptionFragment()
+            1 -> GroupMembersFragment(group)
             else -> throw IllegalStateException("Position inconnue: $position")
         }
+    }
+
+    fun updateGroup(groupUp: Group) {
+        group = groupUp
     }
 }
