@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuestionsActivity">
+    tools:context=".ProgramsActivity">
 
-    <!-- TopAppBar avec icône de retour et titre -->
+    <!-- TopAppBar avec icônes de retour, titre et ajout -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topAppBar"
         android:layout_width="0dp"
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Nouvelle Question"
+            android:text="Programmes"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/black"
@@ -52,7 +52,7 @@
 
         <!-- Icône d'ajout -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/addBtn"
+            android:id="@+id/btn_add"
             android:layout_width="45dp"
             android:layout_height="50dp"
             android:backgroundTint="@color/orange"
@@ -70,90 +70,15 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Section des tags -->
-    <LinearLayout
-        android:id="@+id/tagsSection"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/topAppBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tagNouveau"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nouveau"
-            android:textSize="11sp"
-            android:textColor="@color/white"
-            app:icon="@drawable/ic_new"
-            app:iconGravity="textStart"
-            app:iconSize="12dp"
-            app:iconTint="@color/white"
-            android:backgroundTint="@color/blue"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:layout_marginEnd="8dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tagTop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Top"
-            android:textSize="11sp"
-            android:textColor="@color/white"
-            app:icon="@drawable/ic_top"
-            app:iconGravity="textStart"
-            app:iconSize="12dp"
-            app:iconTint="@color/white"
-            android:backgroundTint="@color/gray"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:layout_marginEnd="8dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tagChaud"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chaud"
-            android:textSize="11sp"
-            android:textColor="@color/white"
-            app:icon="@drawable/ic_hot"
-            app:iconGravity="textStart"
-            app:iconSize="12dp"
-            app:iconTint="@color/white"
-            android:backgroundTint="@color/gray"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:layout_marginEnd="8dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tagFerme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fermé"
-            android:textSize="11sp"
-            android:textColor="@color/white"
-            app:icon="@drawable/ic_closed"
-            app:iconGravity="textStart"
-            app:iconSize="12dp"
-            app:iconTint="@color/white"
-            android:backgroundTint="@color/gray"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp" />
-    </LinearLayout>
-
-    <!-- RecyclerView pour afficher les questions -->
+    <!-- RecyclerView pour la liste des programmes -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tagsSection"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topAppBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="8dp"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
