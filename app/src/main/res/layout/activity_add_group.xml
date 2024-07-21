@@ -111,23 +111,23 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Champ de texte pour le titre du programme -->
-<!--            <com.google.android.material.textfield.TextInputLayout-->
-<!--                android:id="@+id/photoInputLayout"-->
-<!--                android:layout_width="0dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                app:boxStrokeColor="@color/gray"-->
-<!--                app:hintEnabled="true"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@id/languagesInputLayout">-->
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+            <!--                android:id="@+id/photoInputLayout"-->
+            <!--                android:layout_width="0dp"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="16dp"-->
+            <!--                app:boxStrokeColor="@color/gray"-->
+            <!--                app:hintEnabled="true"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toBottomOf="@id/languagesInputLayout">-->
 
-<!--                <com.google.android.material.textfield.TextInputEditText-->
-<!--                    android:id="@+id/photoInput"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="Photo de profil du groupe" />-->
-<!--            </com.google.android.material.textfield.TextInputLayout>-->
+            <!--                <com.google.android.material.textfield.TextInputEditText-->
+            <!--                    android:id="@+id/photoInput"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:hint="Photo de profil du groupe" />-->
+            <!--            </com.google.android.material.textfield.TextInputLayout>-->
 
             <!-- Champ de texte pour la description du programme -->
             <com.google.android.material.textfield.TextInputLayout
