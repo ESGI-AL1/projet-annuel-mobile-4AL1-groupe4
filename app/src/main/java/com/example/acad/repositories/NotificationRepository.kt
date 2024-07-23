@@ -1,6 +1,7 @@
 package com.example.acad.repositories
 
 import com.example.acad.models.Notification
+import com.example.acad.requests.NotificationRequest
 import com.example.acad.services.NotificationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -15,5 +16,9 @@ class NotificationRepository @Inject constructor(private val service: Notificati
 
     fun showNotification(token: String, id: String): Flow<Notification> = flow {
         emit(service.show(token = "Bearer $token", id = id))
+    }.flowOn(Dispatchers.IO)
+
+    fun createNotification(token: String, request: NotificationRequest): Flow<Notification> = flow {
+        emit(service.create(token = "Bearer $token", request = request))
     }.flowOn(Dispatchers.IO)
 }
