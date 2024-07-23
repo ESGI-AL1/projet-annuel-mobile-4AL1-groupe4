@@ -31,8 +31,9 @@ class ProgramAdapter(
         // Clear existing tags
         holder.tagsLayout.removeAllViews()
 
+//        program.tags?.addAll()
         // Add tags to the layout
-        program.tags?.forEach { tag ->
+        listOf("#code", "#program", "#informatique").forEach { tag ->
             val tagView = LayoutInflater.from(holder.itemView.context)
                 .inflate(R.layout.tag_view, holder.tagsLayout, false) as TextView
             tagView.text = tag
