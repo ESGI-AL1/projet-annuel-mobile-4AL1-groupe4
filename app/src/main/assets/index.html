@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" data-name="vs/editor/editor.main"
+          href="file:///android_asset/monaco-editor/min/vs/editor/editor.main.css">
+</head>
+<body>
+<div id="container" style="width:100%;height:500px;border:1px solid black;"></div>
+
+<script type="text/javascript" src="file:///android_asset/monaco-editor/min/vs/loader.js"></script>
+<script type="text/javascript">
+    require.config({ paths: { 'vs': 'file:///android_asset/monaco-editor/min/vs' }});
+    require(['vs/editor/editor.main'], function() {
+        const params = new URLSearchParams(window.location.search);
+        const fileUrl = params.get('fileUrl');
+
+        fetch(fileUrl)
+            .then(response => response.text())
+            .then(data => {
+                monaco.editor.create(document.getElementById('container'), {
+                    value: data,
+                    language: 'java'
+                });
+            });
+    });
+</script>
+</body>
+</html>
