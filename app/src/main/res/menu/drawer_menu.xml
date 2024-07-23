@@ -21,18 +21,18 @@
         android:title="Mes programmes" />
 
     <!-- Communauté Section -->
-<!--    <item-->
-<!--        android:id="@+id/menu_questions"-->
-<!--        android:icon="@drawable/ic_programmes"-->
-<!--        android:title="Questions" />-->
-<!--    <item-->
-<!--        android:id="@+id/menu_mes_questions"-->
-<!--        android:icon="@drawable/ic_my_questions"-->
-<!--        android:title="Mes questions" />-->
-<!--    <item-->
-<!--        android:id="@+id/menu_mes_reponses"-->
-<!--        android:icon="@drawable/ic_my_answers"-->
-<!--        android:title="Mes réponses" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/menu_questions"-->
+    <!--        android:icon="@drawable/ic_programmes"-->
+    <!--        android:title="Questions" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/menu_mes_questions"-->
+    <!--        android:icon="@drawable/ic_my_questions"-->
+    <!--        android:title="Mes questions" />-->
+    <!--    <item-->
+    <!--        android:id="@+id/menu_mes_reponses"-->
+    <!--        android:icon="@drawable/ic_my_answers"-->
+    <!--        android:title="Mes réponses" />-->
     <item
         android:id="@+id/menu_mes_groupes"
         android:icon="@drawable/ic_my_groups"
