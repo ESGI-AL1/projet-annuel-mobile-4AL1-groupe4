@@ -6,21 +6,21 @@ import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import android.widget.MultiAutoCompleteTextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.acad.adapters.GroupAdapter
 import com.example.acad.data.UserData
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.repositories.GroupRepository
+import com.example.acad.repositories.NotificationRepository
 import com.example.acad.requests.GroupRequest
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -35,9 +35,15 @@ class AddGroupActivity : AppCompatActivity() {
     lateinit var dataStoreRepository: DataStoreRepository
 
     @Inject
+    lateinit var notificationRepository: NotificationRepository
+
+    @Inject
     lateinit var userData: UserData
 
-    private lateinit var tagsTextEdit: AutoCompleteTextView
+    private val members = mutableListOf<String>()
+
+    private lateinit var tagsTextEdit: MultiAutoCompleteTextView
+    private lateinit var membersInput: MultiAutoCompleteTextView
     private lateinit var titleTextEdit: EditText
     private lateinit var photoTextEdit: EditText
     private lateinit var descriptionTextEdit: EditText
@@ -58,14 +64,15 @@ class AddGroupActivity : AppCompatActivity() {
             finish()
         }
 
-        val languagesInput: AutoCompleteTextView = findViewById(R.id.languagesInput)
-        val languages = userData.list.map { it.username }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, languages)
-        languagesInput.setAdapter(adapter)
+        membersInput = findViewById(R.id.languagesInput)
+        val users = userData.list.map { it.username }
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, users)
+        membersInput.setAdapter(adapter)
+        membersInput.setTokenizer(MultiAutoCompleteTextView.CommaTokenizer())
 
         // Afficher le menu déroulant lors du clic sur le champ de texte
-        languagesInput.setOnClickListener {
-            languagesInput.showDropDown()
+        membersInput.setOnClickListener {
+            membersInput.showDropDown()
         }
 
         val createGroupButton: MaterialButton = findViewById(R.id.createProgramButton)
@@ -78,7 +85,9 @@ class AddGroupActivity : AppCompatActivity() {
         createGroupButton.setOnClickListener {
             // Gérer le clic du bouton pour créer le programme
             // Récupérer les données saisies et les envoyer au serveur ou les stocker localement
-            val members = listOf(userData.getUser(tagsTextEdit.text.toString())?.id)
+            val memberUsernames = tagsTextEdit.text.split(",").map { it.trim() }
+            val members = memberUsernames.mapNotNull { userData.getUser(it)?.id }
+//            val members = listOf(userData.getUser(tagsTextEdit.text.toString())?.id)
             val request = GroupRequest(
                 title = titleTextEdit.text.toString(),
                 description = descriptionTextEdit.text.toString(),
@@ -99,6 +108,18 @@ class AddGroupActivity : AppCompatActivity() {
                     }
 //                _state.value = HttpStatus.ERROR
                 }
+//                .onCompletion {
+//                    val notificationRequest = NotificationRequest()
+//                    notificationRepository.createNotification(token, notificationRequest)
+//                        .catch { exception ->
+//                            if (exception is HttpException) {
+//                                val errorBody = exception.response()?.errorBody()?.string()
+//                                Log.e(TAG, "loginUser: $errorBody", exception)
+//                            } }
+//                        .collect {
+//                        Log.d(TAG, "launchRequest: $it")
+//                    }
+//                }
                 .collect { response ->
                     Log.d(TAG, "launchRequest: $response")
                     finish()

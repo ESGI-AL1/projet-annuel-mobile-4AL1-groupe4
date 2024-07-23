@@ -77,6 +77,7 @@ class GroupDetailActivity : AppCompatActivity() {
 
         viewPager = findViewById(R.id.viewPager)
         tabLayout = findViewById(R.id.tabLayout)
+        var btn:MaterialButton = findViewById(R.id.joinButton)
 
         val users = userData.list
         val members = group?.members?.map { users.find { user -> user.id.toLong() == it.toLong() } }
