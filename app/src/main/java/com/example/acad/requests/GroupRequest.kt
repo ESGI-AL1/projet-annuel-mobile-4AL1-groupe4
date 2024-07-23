@@ -6,6 +6,6 @@ data class GroupRequest(
     @SerializedName("name")
     val title: String,
     val description: String,
-    val members: List<Int?>,
-    //val photo: String
+    val members: List<Long?>,
+//    val photo: String
 )
