@@ -21,6 +21,7 @@ class PendingNotificationsFragment : Fragment() {
     private lateinit var notificationRecyclerView: RecyclerView
 
     private val notifications = listOf<Notification>()
+
     //        Notification(title = "Michael Demande à rejoindre le groupe ....", time = "6 minutes ago", hasActions = true),
 //        Notification(title = "User X vous invite à rejoindre le groupe", time = "Jan 4, 2019", hasActions = true)
 //    )

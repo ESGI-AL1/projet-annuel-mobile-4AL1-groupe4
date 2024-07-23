@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.acad.R
+import com.example.acad.adapters.MemberGroupAdapter
 import com.example.acad.adapters.MembersAdapter
 import com.example.acad.data.GroupData
 import com.example.acad.data.UserData
@@ -30,7 +31,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class GroupMembersFragment(private val group: Group?) : Fragment() {
 
-    private lateinit var memberAdapter: MembersAdapter
+    private lateinit var memberAdapter: MemberGroupAdapter
     private lateinit var memberRecyclerView: RecyclerView
 
     @Inject
@@ -89,7 +90,7 @@ class GroupMembersFragment(private val group: Group?) : Fragment() {
 
 //        members = group.members.map { userData.getUser(it) }.map { it.toMember() }
         memberRecyclerView = view.findViewById(R.id.membersRecyclerView)
-        memberAdapter = MembersAdapter(members)
+        memberAdapter = MemberGroupAdapter(members)
         memberRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         memberRecyclerView.adapter = memberAdapter
