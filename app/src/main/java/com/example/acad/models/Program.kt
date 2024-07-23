@@ -35,7 +35,7 @@ data class Program(
     @SerializedName("output_type")
     val outputType: String,
     val isVisible: Boolean,
-    val tags: List<String>?,
+    val tags: MutableList<String>?,
 ) {
     constructor() : this(
         id = 0,

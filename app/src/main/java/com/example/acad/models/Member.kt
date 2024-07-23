@@ -1,7 +1,7 @@
 package com.example.acad.models
 
 data class Member(
-    val id: Int,
+    val id: Long,
     val name: String,
     val username: String,
     val bio: String,

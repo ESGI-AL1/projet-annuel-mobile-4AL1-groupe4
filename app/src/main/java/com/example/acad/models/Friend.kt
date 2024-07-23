@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class Friend(
     @SerializedName("id")
-    val id: Int,
+    val id: Long,
     @SerializedName("title")
     val title: String,
     @SerializedName("user")
-    val userId: Int,
+    val userId: Long,
     @SerializedName("friend")
-    val friendId: Int,
+    val friendId: Long,
     @SerializedName("created_at")
     val createdAt: String,
     @SerializedName("status")
