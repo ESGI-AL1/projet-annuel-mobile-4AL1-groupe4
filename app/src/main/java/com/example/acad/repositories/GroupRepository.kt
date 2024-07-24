@@ -1,5 +1,7 @@
 package com.example.acad.repositories
 
+import android.content.ContentValues
+import android.util.Log
 import com.example.acad.models.Group
 import com.example.acad.requests.GroupRequest
 import com.example.acad.services.GroupService
@@ -23,6 +25,11 @@ class GroupRepository @Inject constructor(private val service: GroupService) {
     }.flowOn(Dispatchers.IO)
 
     fun getGroup(token: String, groupId: String?): Flow<Group> = flow {
-        emit(service.show(token = "Bearer $token", groupId))
-    }
+        try {
+            val response = service.show(token = "Bearer $token", groupId)
+            emit(response)
+        } catch (e: Exception) {
+            Log.d(ContentValues.TAG, "getGroup: ${e.message}")
+        }
+    }.flowOn(Dispatchers.IO)
 }
