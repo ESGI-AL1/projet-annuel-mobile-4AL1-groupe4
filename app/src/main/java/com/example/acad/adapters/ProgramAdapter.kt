@@ -1,5 +1,7 @@
 package com.example.acad.adapters
 
+import android.content.ContentValues
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -14,6 +16,8 @@ class ProgramAdapter(
     private var programs: List<Program>,
     private val onClick: (Program) -> Unit
 ) : RecyclerView.Adapter<ProgramViewHolder>() {
+
+    private val searchPrograms = mutableListOf<Program>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgramViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_program, parent, false)
@@ -49,10 +53,15 @@ class ProgramAdapter(
 
     fun updateData(newPrograms: List<Program>) {
         programs = newPrograms
+        searchPrograms.clear()
+        searchPrograms.addAll(newPrograms)
         notifyDataSetChanged()
     }
 
-    fun getProgram(position: Int): Program {
-        return programs[position]
+    fun searchProgram(query: String) {
+        programs = if (query.isNotBlank()) searchPrograms.filter { program ->
+            program.title.contains(query, ignoreCase = true)
+        } else searchPrograms
+        notifyDataSetChanged()
     }
 }
