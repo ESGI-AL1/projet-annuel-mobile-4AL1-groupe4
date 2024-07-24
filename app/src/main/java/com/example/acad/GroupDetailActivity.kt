@@ -1,6 +1,7 @@
 package com.example.acad
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +16,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.acad.adapters.GroupDetailsPagerAdapter
 import com.example.acad.data.GroupData
 import com.example.acad.data.UserData
-import com.example.acad.data.toMember
 import com.example.acad.models.Group
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.repositories.GroupRepository
@@ -25,7 +25,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -77,15 +76,15 @@ class GroupDetailActivity : AppCompatActivity() {
 
         viewPager = findViewById(R.id.viewPager)
         tabLayout = findViewById(R.id.tabLayout)
-        var btn:MaterialButton = findViewById(R.id.joinButton)
+        val btn: MaterialButton = findViewById(R.id.joinButton)
 
         val users = userData.list
-        val members = group?.members?.map { users.find { user -> user.id.toLong() == it.toLong() } }
-            ?.map {
-                Log.d(TAG, "onCreate: $it")
-                it!!.toMember()
-            } ?: emptyList()
 
+        btn.setOnClickListener {
+            val intent = Intent(this, GroupMessageActivity::class.java)
+            intent.putExtra("groupId", groupId)
+            startActivity(intent)
+        }
 
         adapter = GroupDetailsPagerAdapter(this, group)
         viewPager.adapter = adapter
