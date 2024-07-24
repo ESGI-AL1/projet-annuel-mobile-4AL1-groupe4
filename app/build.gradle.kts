@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.retrofit.okhttp.client)
     implementation(libs.retrofit.logging.interceptor)
     implementation(libs.androidx.webkit)
+    implementation(libs.java.jwt)
 }
 
 kapt {
