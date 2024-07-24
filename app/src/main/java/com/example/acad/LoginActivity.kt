@@ -16,6 +16,7 @@ import com.example.acad.repositories.AuthRepository
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.requests.LoginRequest
 import com.example.acad.utils.enums.HttpStatus
+import com.example.acad.utils.getJwtUserId
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -96,6 +97,9 @@ class LoginActivity : AppCompatActivity() {
             .collect { response ->
                 Log.d(TAG, "launchRequest: $response")
                 _state.value = HttpStatus.LOADED
+//                val userId = getJwtUserId(response.access)!!
+//                Log.d(TAG, "user id: $userId")
+//                dataStoreRepository.saveUserId(userId)
                 dataStoreRepository.saveAccessToken(response.access)
                 dataStoreRepository.saveRefreshToken(response.refresh)
             }
