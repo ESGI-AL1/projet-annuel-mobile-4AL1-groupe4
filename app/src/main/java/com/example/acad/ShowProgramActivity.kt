@@ -4,14 +4,17 @@ import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.os.Looper
+import android.text.InputType
 import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,9 +29,11 @@ import com.example.acad.repositories.CommentRepository
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.repositories.ProgramRepository
 import com.example.acad.requests.ActionRequest
+import com.example.acad.requests.CommentRequest
 import com.example.acad.utils.format
 import com.example.acad.utils.parseDate
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -42,6 +47,7 @@ import javax.inject.Inject
 class ShowProgramActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CommentAdapter
+    private lateinit var fab: FloatingActionButton
 
     lateinit var profileImage: ShapeableImageView
     private lateinit var programAuthor: TextView
@@ -102,6 +108,7 @@ class ShowProgramActivity : AppCompatActivity() {
         programDescription = findViewById(R.id.programDescription)
         programCode = findViewById(R.id.programCode)
         likeButton = findViewById(R.id.likeButton)
+        fab = findViewById(R.id.fab)
 
 
 
@@ -142,9 +149,59 @@ class ShowProgramActivity : AppCompatActivity() {
             }
         }
 
-        lifecycleScope.launch {
+        fab.setOnClickListener {
+            showAddCommentDialog(program!!.id)
+        }
 
+        lifecycleScope.launch {
             launchComment()
+        }
+    }
+
+    private fun showAddCommentDialog(programId: Long) {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Ajouter un commentaire")
+
+        val input = EditText(this)
+        input.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
+        builder.setView(input)
+
+        builder.setPositiveButton("Ajouter") { dialog, which ->
+            val comment = input.text.toString()
+            // Gérer l'ajout du commentaire
+            lifecycleScope.launch {
+                dataStoreRepository.readUserId().collect { userId ->
+                    val request = CommentRequest(
+                        text = comment,
+                        program = programId,
+                        author = userId.toLong()
+                    )
+                    launchStoreComment(request)
+                }
+            }
+        }
+        builder.setNegativeButton("Annuler") { dialog, which ->
+            dialog.cancel()
+        }
+
+        builder.show()
+    }
+
+    private suspend fun launchStoreComment(request: CommentRequest) = withContext(Dispatchers.IO) {
+        dataStoreRepository.readAccessToken().collect { token ->
+            commentRepository.createComment(token, request)
+                .catch { exception ->
+                    if (exception is HttpException) {
+                        Log.e(TAG, "loginUser: ${exception.message()}", exception)
+                    }
+//                _state.value = HttpStatus.ERROR
+                }
+                .collect { response ->
+//                    val programs: List<Program> = response
+//                        .map { program -> if (program is Program) program else Program() }
+                    Log.d(TAG, "launchRequest: $response")
+                    launchComment()
+                }
         }
     }
 

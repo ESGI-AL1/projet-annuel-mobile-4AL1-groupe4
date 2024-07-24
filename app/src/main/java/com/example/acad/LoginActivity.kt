@@ -16,7 +16,8 @@ import com.example.acad.repositories.AuthRepository
 import com.example.acad.repositories.DataStoreRepository
 import com.example.acad.requests.LoginRequest
 import com.example.acad.utils.enums.HttpStatus
-import com.example.acad.utils.getJwtUserId
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -30,9 +31,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-
     private lateinit var emailTextEdit: EditText
     private lateinit var passwordTextEdit: EditText
+    private lateinit var googleButton: MaterialButton
 
     private var _state = MutableStateFlow(HttpStatus.INITIAL)
 
@@ -56,6 +57,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val btnLogin: MaterialButton = findViewById(R.id.loginButton)
+        googleButton = findViewById(R.id.googleButton)
         emailTextEdit = findViewById(R.id.email)
         passwordTextEdit = findViewById(R.id.password)
 
@@ -74,7 +76,21 @@ class LoginActivity : AppCompatActivity() {
         backBtn.setOnClickListener {
             finish()
         }
+//
 
+        googleButton.setOnClickListener {
+//            lifecycleScope.launch {
+//                try {
+//                    val result = CredentialManager.getCredential(
+//                        request = request,
+//                        context = activityContext,
+//                    )
+//                    handleSignIn(result)
+//                } catch (e: GetCredentialException) {
+//                    Log.e(TAG, "onCreate: $e")
+//                }
+//            }
+        }
     }
 
     private suspend fun launchRequest(request: LoginRequest) = withContext(Dispatchers.IO) {

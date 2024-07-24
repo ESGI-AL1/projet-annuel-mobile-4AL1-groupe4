@@ -1,7 +1,5 @@
 package com.example.acad.adapters
 
-import android.content.ContentValues
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -37,7 +35,7 @@ class ProgramAdapter(
 
 //        program.tags?.addAll()
         // Add tags to the layout
-        listOf("#code", "#program", "#informatique").forEach { tag ->
+        listOf("#linux", "#java", "#kotlin").forEach { tag ->
             val tagView = LayoutInflater.from(holder.itemView.context)
                 .inflate(R.layout.tag_view, holder.tagsLayout, false) as TextView
             tagView.text = tag

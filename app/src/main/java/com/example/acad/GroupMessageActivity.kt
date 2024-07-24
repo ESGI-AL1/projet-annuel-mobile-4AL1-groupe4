@@ -148,9 +148,9 @@ class GroupMessageActivity : AppCompatActivity() {
                 }
                 .collect { response ->
                     Log.d(TAG, "Messages: $response")
-                    val messages = response.sortedByDescending { it.id }
-                        .filter { it.groupId == groupId }
-                    Log.d(TAG, "launchRequest Messages: $messages")
+                            val messages = response.sortedByDescending { it.id }
+                                .filter { it.groupId == groupId }
+                            Log.d(TAG, "launchRequest Messages: $messages")
                     withContext(Dispatchers.Main) {
                         adapter.updateData(messages)
                     }

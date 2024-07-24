@@ -4,20 +4,20 @@ import android.content.ContentValues
 import android.util.Log
 import com.auth0.jwt.JWT
 import com.auth0.jwt.exceptions.JWTVerificationException
-import com.example.acad.data.JwtDecodeData
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-//const val SERVER_IP_BASE = "192.168.1.21:8000"
-
 
 //const val SERVER_IP_BASE = "192.168.1.79:8000"
 const val SERVER_IP_BASE = "ec2-13-53-40-36.eu-north-1.compute.amazonaws.com:8000"
+//const val SERVER_IP_BASE = "ec2-13-60-35-3.eu-north-1.compute.amazonaws.com:8000"
+
 //const val SERVER_IP_BASE = "10.2.30.240:8000"
 //const val SERVER_IP_BASE = "192.168.0.108:8000"
+const val WEB_CLIENT_ID = ""
 
 fun Date.format(format: String, date: Locale = Locale.getDefault()): String {
     val formatter = SimpleDateFormat(format, date)
@@ -49,7 +49,7 @@ fun String.parseDate(format: String, locale: Locale = Locale.getDefault()): Date
 fun getJwtUserId(token: String): Any {
     try {
         val decodedJWT = JWT.decode(token)
-        val objet  = gson.fromJson(decodedJWT.subject, Any::class.java)
+        val objet = gson.fromJson(decodedJWT.subject, Any::class.java)
         Log.d(ContentValues.TAG, "getJwtUserId: $decodedJWT")
         return objet
     } catch (exception: Exception) {
@@ -61,3 +61,52 @@ fun getJwtUserId(token: String): Any {
 val gson: Gson = GsonBuilder()
     .setLenient()
     .create()
+//
+//val googleIdOption: GetGoogleIdOption = GetGoogleIdOption.Builder()
+//    .setFilterByAuthorizedAccounts(true)
+//    .setServerClientId(WEB_CLIENT_ID)
+//    .setAutoSelectEnabled(true)
+//    .build()
+//
+//val request: GetCredentialRequest = Builder()
+//    .addCredentialOption(googleIdOption)
+//    .build()
+//
+//
+//
+//fun handleSignIn(result: GetCredentialResponse) {
+//    // Handle the successfully returned credential.
+//    val credential = result.credential
+//
+//    when (credential) {
+//
+//        // Password credential
+//        is PasswordCredential -> {
+//            // Send ID and password to your server to validate and authenticate.
+//            val username = credential.id
+//            val password = credential.password
+//        }
+//
+//        // GoogleIdToken credential
+//        is CustomCredential -> {
+//            if (credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL) {
+//                try {
+//                    // Use googleIdTokenCredential and extract id to validate and
+//                    // authenticate on your server.
+//                    val googleIdTokenCredential = GoogleIdTokenCredential
+//                        .createFrom(credential.data)
+//                } catch (e: GoogleIdTokenParsingException) {
+//                    Log.e(TAG, "Received an invalid google id token response", e)
+//                }
+//            } else {
+//                // Catch any unrecognized custom credential type here.
+//                Log.e(TAG, "Unexpected type of credential")
+//            }
+//        }
+//
+//        else -> {
+//            // Catch any unrecognized credential type here.
+//            Log.e(TAG, "Unexpected type of credential")
+//        }
+//    }
+//}

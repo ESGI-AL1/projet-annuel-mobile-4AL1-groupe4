@@ -15,9 +15,13 @@ datastorePreferences = "1.1.1"
 lifecycleViewmodelKtx = "2.8.3"
 kspAndroid = "2.0.0-1.0.22"
 okhttp3 = "4.12.0"
-textdrawable = "1.0.1"
+googleOAuth = "1.2.2"
+googleID = "1.1.1"
+hiltViewModel = "1.0.0-alpha03"
 webkit = "1.11.0"
 jwt = "4.4.0"
+googlePlayAuth = "21.2.0"
+playServicesBasement = "18.4.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,6 +47,11 @@ androidx-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-commo
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 java-jwt = { module = "com.auth0:java-jwt", version.ref = "jwt" }
+androidx-credentials = { module = "androidx.credentials:credentials", version.ref = "googleOAuth" }
+androidx-credentials-play = { module = "androidx.credentials:credentials-play-services-auth", version.ref = "googleOAuth" }
+google-play-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "googlePlayAuth" }
+google-id = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleID" }
+play-services-basement = { group = "com.google.android.gms", name = "play-services-basement", version.ref = "playServicesBasement" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
