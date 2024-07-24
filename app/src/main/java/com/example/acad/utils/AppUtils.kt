@@ -1,10 +1,18 @@
 package com.example.acad.utils
 
+import android.content.ContentValues
+import android.util.Log
+import com.auth0.jwt.JWT
+import com.auth0.jwt.exceptions.JWTVerificationException
+import com.example.acad.data.JwtDecodeData
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 //const val SERVER_IP_BASE = "192.168.1.21:8000"
+
 
 //const val SERVER_IP_BASE = "192.168.1.79:8000"
 const val SERVER_IP_BASE = "ec2-13-53-40-36.eu-north-1.compute.amazonaws.com:8000"
@@ -37,3 +45,19 @@ fun String.parseDate(format: String, locale: Locale = Locale.getDefault()): Date
 //    e.printStackTrace()
 //    ""
 //}
+
+fun getJwtUserId(token: String): Any {
+    try {
+        val decodedJWT = JWT.decode(token)
+        val objet  = gson.fromJson(decodedJWT.subject, Any::class.java)
+        Log.d(ContentValues.TAG, "getJwtUserId: $decodedJWT")
+        return objet
+    } catch (exception: Exception) {
+        // Invalid signature/claims
+        throw JWTVerificationException("Invalid token")
+    }
+}
+
+val gson: Gson = GsonBuilder()
+    .setLenient()
+    .create()
