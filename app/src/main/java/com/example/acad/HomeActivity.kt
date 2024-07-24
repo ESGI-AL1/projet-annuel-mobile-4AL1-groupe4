@@ -99,6 +99,8 @@ class HomeActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.menu_rechercher -> {
                     // Handle Rechercher action
+                    val intent = Intent(this, SearchProgramActivity::class.java)
+                    startActivity(intent)
                 }
 
                 R.id.menu_programmes -> {
