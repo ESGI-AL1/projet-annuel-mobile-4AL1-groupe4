@@ -12,7 +12,7 @@ class MemberGroupAdapter(
 ) : RecyclerView.Adapter<MemberGroupViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberGroupViewHolder {
         val binding = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_member_group, parent, false)
+                .inflate(R.layout.item_member_group, parent, false)
         return MemberGroupViewHolder(binding)
     }
 

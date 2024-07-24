@@ -10,7 +10,7 @@ import com.example.acad.models.Member
 import com.example.acad.viewholders.MemberViewHolder
 
 class UserAdapter(private val members: List<Member>,
-                  private val onItemClicked: (Member) -> Unit) : RecyclerView.Adapter<MemberViewHolder>() {
+    private val onItemClicked: (Member) -> Unit) : RecyclerView.Adapter<MemberViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MemberViewHolder {
         val binding = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_member, parent, false)
