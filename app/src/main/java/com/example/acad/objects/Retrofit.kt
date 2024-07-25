@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 object Retrofit {
 
-    private const val BASE_URL = "http://$SERVER_IP_BASE/api/"
+    private const val BASE_URL = "https://$SERVER_IP_BASE/api/"
 
     private val okHttpClient = OkHttpClient().newBuilder()
         .followRedirects(true)

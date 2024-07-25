@@ -20,17 +20,6 @@ class HttpInterceptor : Interceptor {
         Log.d(ContentValues.TAG, "request builder: ${requestBuilder.build()}")
         val response = chain.proceed(requestBuilder.build())
         Log.d(ContentValues.TAG, "response builder: ${response.body}")
-        if (response.code == 401) {
-            synchronized(this) {
-                runBlocking {
-                    launch {
-                        refreshToken("hjhjmluji")
-                    }
-                }
-//                repository.refreshToken(repository.refreshToken.value)
-                Log.d(ContentValues.TAG, "refreshing token")
-            }
-        }
         return response
     }
 
