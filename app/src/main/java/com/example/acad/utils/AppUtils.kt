@@ -15,7 +15,9 @@ import java.util.Locale
 
 //const val SERVER_IP_BASE = "192.168.1.79:8000"
 //const val SERVER_IP_BASE = "ec2-13-53-40-36.eu-north-1.compute.amazonaws.com:8000"
-const val SERVER_IP_BASE = "backend-2ku9.onrender.com"
+//const val SERVER_IP_BASE = "backend-2ku9.onrender.com"
+const val SERVER_IP_BASE = "172.25.16.1:8000"
+
 //const val SERVER_IP_BASE = "ec2-13-60-35-3.eu-north-1.compute.amazonaws.com:8000"
 
 //const val SERVER_IP_BASE = "10.2.30.240:8000"
